@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>再次遇见 · 足球竞猜信息卡片</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f8fafc;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            color: #1e293b;
+            line-height: 1.6;
+            padding: 2rem 1rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .page {
+            max-width: 720px;
+            width: 100%;
+        }
+
+        /* 主视觉 — 留白卡片区 */
+        .hero-card {
+            background: #ffffff;
+            border-radius: 32px;
+            padding: 3rem 2.5rem 2.8rem;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+            margin-bottom: 2.2rem;
+            transition: box-shadow 0.2s ease;
+        }
+
+        .hero-card:hover {
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: #eef2ff;
+            color: #4f46e5;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            padding: 0.2rem 1rem;
+            border-radius: 100px;
+            margin-bottom: 1.2rem;
+        }
+
+        .hero-title {
+            font-size: 2.4rem;
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+            color: #0f172a;
+            margin-bottom: 1rem;
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            color: #475569;
+            max-width: 560px;
+            margin-bottom: 1.6rem;
+        }
+
+        .hero-meta {
+            font-size: 0.95rem;
+            color: #64748b;
+            border-top: 1px solid #e9edf2;
+            padding-top: 1.4rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem 2rem;
+        }
+
+        .hero-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .hero-meta i {
+            font-style: normal;
+        }
+
+        /* 用途卡片组 */
+        .card-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.4rem;
+            margin-bottom: 2.2rem;
+        }
+
+        .card-item {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 1.8rem 2rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+            transition: all 0.2s ease;
+            border: 1px solid #f1f5f9;
+        }
+
+        .card-item:hover {
+            border-color: #dbe3ef;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.04);
+        }
+
+        .card-item h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 0.6rem;
+        }
+
+        .card-item p {
+            color: #475569;
+            font-size: 0.98rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .card-item .sub {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            margin-top: 0.6rem;
+        }
+
+        /* 适合人群 */
+        .audience-section {
+            background: #ffffff;
+            border-radius: 32px;
+            padding: 2rem 2.5rem;
+            margin-bottom: 2.2rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.02);
+            border: 1px solid #f1f5f9;
+        }
+
+        .audience-section h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 1.2rem;
+        }
+
+        .audience-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem 1rem;
+        }
+
+        .audience-tag {
+            background: #f1f5f9;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            color: #334155;
+            transition: background 0.15s;
+        }
+
+        .audience-tag:hover {
+            background: #e2e8f0;
+        }
+
+        /* 自然链接段落 */
+        .link-paragraph {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 2rem 2.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid #f1f5f9;
+            box-shadow: 0 1px 8px rgba(0,0,0,0.02);
+        }
+
+        .link-paragraph p {
+            font-size: 1rem;
+            color: #334155;
+            margin-bottom: 0.6rem;
+            line-height: 1.7;
+        }
+
+        .link-paragraph p:last-child {
+            margin-bottom: 0;
+        }
+
+        .link-paragraph a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.15s;
+        }
+
+        .link-paragraph a:hover {
+            border-bottom-color: #2563eb;
+        }
+
+        /* FAQ 摘要 */
+        .faq-teaser {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 1.8rem 2.2rem;
+            margin-bottom: 1.8rem;
+            border: 1px solid #edeff5;
+        }
+
+        .faq-teaser h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 0.6rem;
+        }
+
+        .faq-teaser .faq-item {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .faq-teaser .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-q {
+            font-weight: 500;
+            color: #1e293b;
+            margin-bottom: 0.2rem;
+        }
+
+        .faq-a {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        /* 底部 */
+        .footer-note {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.8rem;
+            padding: 1.5rem 0 0.5rem;
+            border-top: 1px solid #e9edf2;
+            margin-top: 0.5rem;
+        }
+
+        /* 响应式微调 */
+        @media (max-width: 540px) {
+            body {
+                padding: 1.2rem 0.8rem;
+            }
+            .hero-card {
+                padding: 2rem 1.5rem;
+            }
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            .card-item {
+                padding: 1.4rem 1.2rem;
+            }
+            .audience-section {
+                padding: 1.6rem 1.2rem;
+            }
+            .link-paragraph {
+                padding: 1.4rem 1.2rem;
+            }
+            .faq-teaser {
+                padding: 1.2rem 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+
+    <!-- 主视觉卡片 -->
+    <div class="hero-card">
+        <span class="hero-tag">再次相遇</span>
+        <h1 class="hero-title">收藏一处熟悉的节奏</h1>
+        <p class="hero-desc">
+            有些站点值得你放进书签夹。当你想重温那种清晰、专注的赛事信息流时，一个安静的入口便足够。
+        </p>
+        <div class="hero-meta">
+            <span>📌 已收藏 · 常回来看看</span>
+            <span>🔄 持续关注中</span>
+        </div>
+    </div>
+
+    <!-- 用途卡片 -->
+    <div class="card-grid">
+        <div class="card-item">
+            <h3>📋 赛事信息整合</h3>
+            <p>将分散的数据汇聚成简洁列表，方便你快速浏览赛程、对阵与动态。不必在多个页面间跳转。</p>
+            <div class="sub">适合赛前几分钟的快速扫视</div>
+        </div>
+        <div class="card-item">
+            <h3>🔖 二次回访自然体验</h3>
+            <p>页面结构保持一致性，每次回来都能直接找到熟悉的区域。没有冗余干扰，只有你需要的模块。</p>
+            <div class="sub">习惯之后会形成肌肉记忆</div>
+        </div>
+        <div class="card-item">
+            <h3>⚡ 轻量且专注</h3>
+            <p>没有弹窗或强推送，所有内容都安静地摆在卡片与列表中。你可以按自己的节奏浏览。</p>
+            <div class="sub">把注意力留给真正重要的事情</div>
+        </div>
+    </div>
+
+    <!-- 适合人群 -->
+    <div class="audience-section">
+        <h2>👥 常回来看看的人</h2>
+        <div class="audience-tags">
+            <span class="audience-tag">赛前快速扫视</span>
+            <span class="audience-tag">赛后回顾对比</span>
+            <span class="audience-tag">习惯收藏书签</span>
+            <span class="audience-tag">喜欢干净界面</span>
+            <span class="audience-tag">保持长期关注</span>
+            <span class="audience-tag">信息不贪多</span>
+        </div>
+    </div>
+
+    <!-- 自然链接段落（嵌入“足球竞猜”） -->
+    <div class="link-paragraph">
+        <p>
+            如果你也是那种 <strong>收藏夹里总有几个常驻站点</strong> 的人，那么不妨把 
+            <a href="https://zc-zgzcw.com">足球竞猜</a> 
+            也放进去。页面风格内敛，信息结构一目了然，不需要每次重新适应。
+        </p>
+        <p>
+            许多用户反馈，第一次访问只是试试看，后来却逐渐形成了回来扫一眼的习惯。没有特别的原因，就是顺手、干净、不打扰。
+        </p>
+    </div>
+
+    <!-- FAQ 摘要 -->
+    <div class="faq-teaser">
+        <h3>📌 一些你可能想了解的</h3>
+        <div class="faq-item">
+            <div class="faq-q">页面内容会经常变化吗？</div>
+            <div class="faq-a">核心板块保持稳定，数据随赛程自然更新。你每次回来都不会感到陌生。</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">需要注册或登录吗？</div>
+            <div class="faq-a">不需要。直接打开即可获取信息，没有强制门槛。</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">如何快速回到熟悉的页面？</div>
+            <div class="faq-a">将 <a href="https://zc-zgzcw.com" style="border-bottom: none; color: #2563eb; font-weight: 400;">足球竞猜</a> 加入浏览器书签，下次点击即可。</div>
+        </div>
+    </div>
+
+    <!-- 底部 -->
+    <div class="footer-note">
+        保持开放 · 随时回来
+    </div>
+</div>
+</body>
+</html>
